@@ -1,0 +1,59 @@
+name: fullstack-serverless-db
+
+frontend:
+  component: '@serverless/tencent-website'
+  # refer to: https://github.com/serverless-components/tencent-website/blob/master/docs/configure.md
+  inputs:
+    region: ${env.REGION}
+    bucketName: ${name}
+    protocol: https
+    code:
+      src: dist
+      root: frontend
+      hook: npm run build
+      envPath: src
+    env:
+      # get api url after below api service deployed.
+      apiUrl: ${api.url}
+
+api:
+  component: '@serverless/tencent-express'
+  # refer to: https://github.com/serverless-components/tencent-express/blob/master/docs/configure.md
+  inputs:
+    region: ${env.REGION}
+    code: ./api
+    functionName: ${name}
+    role: ServerlessRole
+    functionConf:
+      timeout: 30
+      vpcConfig:
+        vpcId: ${vpc.vpcId}
+        subnetId: ${vpc.subnetId}
+      environment:
+        variables:
+          PG_CONNECT_STRING: ${postgresql.private.connectionString}
+    apigatewayConf:
+      protocols:
+        - http
+        - https
+
+postgresql:
+  component: '@serverless/tencent-postgresql'
+  # refer to: https://github.com/serverless-components/tencent-postgresql/blob/master/docs/configure.md
+  inputs:
+    region: ${env.REGION}
+    zone: ${env.ZONE}
+    dBInstanceName: serverless
+    extranetAccess: false
+    vpcConfig:
+      vpcId: ${vpc.vpcId}
+      subnetId: ${vpc.subnetId}
+
+vpc:
+  component: '@serverless/tencent-vpc'
+  # refer to: https://github.com/serverless-components/tencent-vpc/blob/master/docs/configure.md
+  inputs:
+    region: ${env.REGION}
+    zone: ${env.ZONE}
+    vpcName: serverlessVpc
+    subnetName: serverlessSubnet
