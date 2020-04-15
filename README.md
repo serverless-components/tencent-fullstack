@@ -1,6 +1,6 @@
-# tencent-serverless-demo
+# tencent-fullstack
 
-Serverless project demo for Tencent Cloud
+Serverless fullstack template for Tencent Cloud
 
 ## Project List
 
