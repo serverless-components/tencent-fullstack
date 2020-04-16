@@ -1,17 +1,36 @@
 'use strict';
 
-require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const UserController = require('./src/controller');
+const UserController = require('./controller/user');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send(
+    JSON.stringify({
+      code: 0,
+      message: `Server time: ${new Date().toString()}`,
+    }),
+  );
+});
+
+app.get('/flush', async (req, res) => {
+  const data = await UserController.deleteEmptyName();
+  res.send(
+    JSON.stringify({
+      code: 0,
+      data,
+      message: 'Flush database Success',
+    }),
+  );
+});
+
 // get user list
-app.get('/users', async (req, res) => {
+app.get('/user', async (req, res) => {
   const data = await UserController.getUserList();
   res.send(
     JSON.stringify({
@@ -22,10 +41,10 @@ app.get('/users', async (req, res) => {
 });
 
 // add new user
-app.post('/users', async (req, res) => {
+app.post('/user', async (req, res) => {
   let result = '';
-  const user = req.body;
   try {
+    const user = req.body;
     const data = await UserController.createUser(user);
     result = {
       code: 0,
@@ -43,7 +62,7 @@ app.post('/users', async (req, res) => {
 });
 
 // delete user
-app.delete('/users/:name', async (req, res) => {
+app.delete('/user/:name', async (req, res) => {
   let result = '';
   try {
     const { name } = req.params;
