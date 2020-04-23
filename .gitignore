@@ -16,8 +16,6 @@ dist
 .idea
 build/
 .env
-.env.local
-.env_temp
 .cache*
 .serverless
 .serverless_nextjs
@@ -28,4 +26,3 @@ package-lock.json
 yarn.lock
 test
 .npmrc
-.scf_build

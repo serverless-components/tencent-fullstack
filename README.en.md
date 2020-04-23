@@ -1,4 +1,6 @@
-# fullstack-serverless-db
+# tencent-fullstack
+
+[简体中文](./README.md) | English
 
 This is a template of serverless fullstack application. It aims to be the
 simplest possible way to build a serverless fullstack application, including a
