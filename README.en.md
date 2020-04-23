@@ -79,10 +79,7 @@ $ npm run bootstrap
 Deploy:
 
 ```console
-$ npm run deploy
-> fullstack-serverless-db-v2@1.0.0 deploy /root/tencent-fullstack
-> sls deploy --all
-
+$ sls deploy --all
 
 serverless ⚡ framework
 
@@ -198,10 +195,7 @@ fullstack-frontend-v2 › Info successfully loaded
 Remove:
 
 ```console
-$ npm run remove
-> fullstack-serverless-db-v2@1.0.0 remove /root/tencent-fullstack
-> sls remove --all
-
+$ sls remove --all
 
 serverless ⚡ framework
 

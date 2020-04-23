@@ -73,11 +73,7 @@ $ npm run bootstrap
 1.执行以下命令进行部署.
 
 ```console
-$ npm run deploy
-
-> fullstack-serverless-db-v2@1.0.0 deploy /root/tencent-fullstack
-> sls deploy --all
-
+$ sls deploy --all
 
 serverless ⚡ framework
 
@@ -193,10 +189,7 @@ fullstack-frontend-v2 › Info successfully loaded
 3.执行npm run remove，可移除项目。
 
 ```console
-$ npm run remove
-> fullstack-serverless-db-v2@1.0.0 remove /root/tencent-fullstack
-> sls remove --all
-
+$  sls remove --all
 
 serverless ⚡ framework
 
