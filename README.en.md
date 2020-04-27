@@ -35,7 +35,7 @@ This template includes:
 Before all below steps, you should install
 [Serverless Framework](https://www.github.com/serverless/serverless) globally:
 
-```console
+```bash
 $ npm i serverless -g
 ```
 
@@ -44,7 +44,7 @@ $ npm i serverless -g
 Severless cli is very convenient, it can download templates in any github
 project which should contain `serverless.yml` file.
 
-```console
+```bash
 $ serverless create --template-url https://github.com/serverless-components/tencent-fullstack
 ```
 
@@ -58,19 +58,19 @@ Add the access keys of a
 
 ```dotenv
 # .env
-TENCENT_SECRET_ID=xxx  
-TENCENT_SECRET_KEY=xxx 
+TENCENT_SECRET_ID=xxx
+TENCENT_SECRET_KEY=xxx
 
 # change to your requirement
-REGION=ap-guangzhou 
+REGION=ap-guangzhou
 ZONE=ap-guangzhou-2
-VPC_ID=vpc-xxx     
-SUBNET_ID=subnet-xxx 
+VPC_ID=vpc-xxx
+SUBNET_ID=subnet-xxx
 ```
 
 Install the NPM dependencies:
 
-```console
+```bash
 $ npm run bootstrap
 ```
 
@@ -78,20 +78,28 @@ $ npm run bootstrap
 
 Deploy:
 
-```console
+```bash
 $ sls deploy --all
 
 serverless ⚡ framework
 
-fullstackDB: 
+serverlessVpc:
+  region:     ap-guangzhou
+  zone:       ap-guangzhou-2
+  vpcId:      vpc-xxx
+  vpcName:    serverless
+  subnetId:   subnet-xxx
+  subnetName: serverless
+
+fullstackDB:
   region:         ap-guangzhou
   zone:           ap-guangzhou-2
-  vpcConfig: 
+  vpcConfig:
     subnetId: subnet-100000
     vpcId:    vpc-1000000
   dBInstanceName: fullstackDB
   dBInstanceId:   postgres-100000
-  private: 
+  private:
     connectionString: postgresql://tencentdb_100000xxxxxxxxxxxxx@172.16.250.15:5432/tencentdb_1000000
     host:             172.16.250.15
     port:             5432
@@ -99,19 +107,19 @@ fullstackDB:
     password:         xxxxxxxx
     dbname:           tencentdb_100000
 
-fullstack-api-v2: 
+fullstack-api:
   region: ap-guangzhou
-  apigw: 
+  apigw:
     serviceId:   service-100000
     subDomain:   service-100000-123456789.gz.apigw.tencentcs.com
     environment: release
     url:         https://service-100000-123456789.gz.apigw.tencentcs.com/release/
-  scf: 
-    functionName: fullstack-api-v2
+  scf:
+    functionName: fullstack-api
     runtime:      Nodejs10.15
     namespace:    default
 
-fullstack-frontend-v2: 
+fullstack-frontend:
   website: https://fullstack-serverless-db-123456789.cos-website.ap-guangzhou.myqcloud.com
 
 50s › tencent-fullstack › Success
@@ -119,13 +127,31 @@ fullstack-frontend-v2:
 
 Get deploy info:
 
-```console
+```bash
 $ npm run info
-> fullstack-serverless-db-v2@1.0.0 info /root/tencent-fullstack
-> npm run info:db && npm run info:api && npm run info:frontend
+> tencent-fullstack@1.1.0 info /root/tencent-fullstack
+> npm run info:vpc && npm run info:db && npm run info:api && npm run info:frontend
+
+> tencent-fullstack@1.1.0 info:vpc /Users/yugasun/Desktop/Develop/@yugasun/tencent-fullstack
+> sls info --target=./vpc
 
 
-> fullstack-serverless-db-v2@1.0.0 info:db /root/tencent-fullstack
+serverless ⚡ framework
+
+Status:       active
+Last Action:  deploy (5 minutes ago)
+Deployments:  1
+
+region:     ap-guangzhou
+zone:       ap-guangzhou-2
+vpcId:      vpc-xxx
+vpcName:    serverless
+subnetId:   subnet-xxx
+subnetName: serverless
+
+serverlessVpc › Info successfully loaded
+
+> tencent-fullstack@1.1.0 info:db /root/tencent-fullstack
 > sls info --target=./db
 
 
@@ -137,12 +163,12 @@ Deployments:  18
 
 region:         ap-guangzhou
 zone:           ap-guangzhou-2
-vpcConfig: 
+vpcConfig:
   subnetId: subnet-100000
   vpcId:    vpc-1000000
 dBInstanceName: fullstackDB
 dBInstanceId:   postgres-100000
-private: 
+private:
   connectionString: postgresql://tencentdb_100000xxxxxxxxxxxxxxxxxxx@172.16.250.15:5432/tencentdb_100000
   host:             172.16.250.15
   port:             5432
@@ -153,7 +179,7 @@ private:
 fullstackDB › Info successfully loaded
 
 
-> fullstack-serverless-db-v2@1.0.0 info:api /root/tencent-fullstack
+> tencent-fullstack@1.1.0 info:api /root/tencent-fullstack
 > sls info --target=./api
 
 
@@ -164,20 +190,20 @@ Last Action:  deploy (2 minutes ago)
 Deployments:  10
 
 region: ap-guangzhou
-apigw: 
+apigw:
   serviceId:   service-1000000
   subDomain:   service-1000000-123456789.gz.apigw.tencentcs.com
   environment: release
   url:         https://service-100000-123456789.gz.apigw.tencentcs.com/release/
-scf: 
-  functionName: fullstack-api-v2
+scf:
+  functionName: fullstack-api
   runtime:      Nodejs10.15
   namespace:    default
 
-fullstack-api-v2 › Info successfully loaded
+fullstack-api › Info successfully loaded
 
 
-> fullstack-serverless-db-v2@1.0.0 info:frontend /root/tencent-fullstack
+> tencent-fullstack@1.1.0 info:frontend /root/tencent-fullstack
 > sls info --target=./frontend
 
 
@@ -189,12 +215,12 @@ Deployments:  9
 
 website: https://fullstack-serverless-db-123456789.cos-website.ap-guangzhou.myqcloud.com
 
-fullstack-frontend-v2 › Info successfully loaded
+fullstack-frontend › Info successfully loaded
 ```
 
 Remove:
 
-```console
+```bash
 $ sls remove --all
 
 serverless ⚡ framework
