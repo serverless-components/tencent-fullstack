@@ -53,8 +53,7 @@ $ serverless create --template-url https://github.com/serverless-components/tenc
 
 Copy `.env.example` file to `.env` in project root:
 
-Add the access keys of a
-[Tencent CAM Role](https://console.cloud.tencent.com/cam/capi) with
+Add the access keys of a[Tencent CAM Role](https://console.cloud.tencent.com/cam/capi) with
 `AdministratorAccess` in the `.env` file, like below:
 
 ```dotenv
