@@ -1,4 +1,4 @@
-org: yugasun
+org: fullstack
 app: fullstack-serverless-db
 stage: dev
 
@@ -10,6 +10,6 @@ inputs:
   zone: ${env:ZONE}
   dBInstanceName: ${name}
   vpcConfig:
-    vpcId: ${env:VPC_ID}
-    subnetId: ${env:SUBNET_ID}
+    vpcId: ${output:${stage}:${app}:serverlessVpc.vpcId}
+    subnetId: ${output:${stage}:${app}:serverlessVpc.subnetId}
   extranetAccess: false
