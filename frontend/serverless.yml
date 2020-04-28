@@ -1,8 +1,8 @@
-org: yugasun
+org: fullstack
 app: fullstack-serverless-db
 stage: dev
 component: website
-name: fullstack-frontend-v2
+name: fullstack-frontend
 
 inputs:
   region: ${env:REGION}
@@ -17,4 +17,4 @@ inputs:
     error: index.html
   env:
     # get api url after below api service deployed.
-    apiUrl: ${output:${stage}:${app}:fullstack-api-v2.apigw.url}
+    apiUrl: ${output:${stage}:${app}:fullstack-api.apigw.url}
