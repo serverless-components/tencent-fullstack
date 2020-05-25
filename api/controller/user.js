@@ -8,26 +8,28 @@ function ApiError(code, msg) {
   return e;
 }
 
-// init mysql connection
-function initPgPool() {
-  const pool = new Pool({
-    connectionString: process.env.PG_CONNECT_STRING,
-  });
-  // init table
-  pool.query(`CREATE TABLE IF NOT EXISTS users (
-    ID serial NOT NULL,
-    NAME           TEXT         NOT NULL,
-    EMAIL          CHAR(50)     NOT NULL,
-    SITE          CHAR(50)     NOT NULL
-  );`);
-
-  return pool;
-}
-
-const pool = initPgPool();
+let pgPool;
 
 module.exports = {
+  async getPool() {
+    if (!pgPool) {
+      pgPool = new Pool({
+        connectionString: process.env.PG_CONNECT_STRING,
+      });
+      // init table
+      await pgPool.query(`CREATE TABLE IF NOT EXISTS users (
+        ID serial NOT NULL,
+        NAME           TEXT         NOT NULL,
+        EMAIL          CHAR(50)     NOT NULL,
+        SITE          CHAR(50)     NOT NULL
+      );`);
+      return pgPool;
+    } else {
+      return pgPool;
+    }
+  },
   async getUserList() {
+    const pool = await this.getPool();
     const client = await pool.connect();
     const { rows } = await client.query({
       text: 'select * from users',
@@ -36,6 +38,7 @@ module.exports = {
     return rows;
   },
   async createUser(user) {
+    const pool = await this.getPool();
     const { name, email, site } = user;
     const existUser = await this.getUserByName(name);
     if (existUser) {
@@ -51,6 +54,7 @@ module.exports = {
   },
   async getUserByName(name) {
     try {
+      const pool = await this.getPool();
       const client = await pool.connect();
       const { rows } = await client.query({
         text: 'SELECT * FROM users WHERE name = $1',
@@ -66,6 +70,7 @@ module.exports = {
     }
   },
   async deleteUserByName(name) {
+    const pool = await this.getPool();
     const client = await pool.connect();
     const { rows } = await client.query({
       text: 'DELETE FROM users WHERE name = $1',
