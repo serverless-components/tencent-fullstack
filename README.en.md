@@ -44,8 +44,7 @@ $ npm i serverless -g
 Severless cli is very convenient, it can download templates in any github
 project which should contain `serverless.yml` file.
 
-```console
-
+```bash
 $ serverless create --template-url https://github.com/serverless-components/tencent-fullstack
 ```
 
@@ -53,17 +52,20 @@ $ serverless create --template-url https://github.com/serverless-components/tenc
 
 Copy `.env.example` file to `.env` in project root:
 
-Add the access keys of a[Tencent CAM Role](https://console.cloud.tencent.com/cam/capi) with
+Add the access keys of a
+[Tencent CAM Role](https://console.cloud.tencent.com/cam/capi) with
 `AdministratorAccess` in the `.env` file, like below:
 
 ```dotenv
 # .env
-TENCENT_SECRET_ID=xxx  
-TENCENT_SECRET_KEY=xxx 
+TENCENT_SECRET_ID=xxx
+TENCENT_SECRET_KEY=xxx
 
 # change to your requirement
-REGION=ap-guangzhou 
-ZONE=ap-guangzhou-2 
+REGION=ap-guangzhou
+ZONE=ap-guangzhou-2
+VPC_ID=vpc-xxx
+SUBNET_ID=subnet-xxx
 ```
 
 Install the NPM dependencies:
@@ -76,50 +78,51 @@ $ npm run bootstrap
 
 Deploy:
 
-```console
+```bash
 $ sls deploy --all
 
 serverless ⚡ framework
 
-serverlessVpc: 
+serverlessVpc:
   region:     ap-guangzhou
   zone:       ap-guangzhou-2
-  vpcId:      vpc-bedexsgb
+  vpcId:      vpc-xxx
   vpcName:    serverless
-  subnetId:   subnet-9yyumbrs
+  subnetId:   subnet-xxx
   subnetName: serverless
 
-fullstackDB: 
+fullstackDB:
   region:         ap-guangzhou
   zone:           ap-guangzhou-2
-  vpcConfig: 
-    subnetId: subnet-9yyumbrs
-    vpcId:    vpc-bedexsgb
+  vpcConfig:
+    subnetId: subnet-100000
+    vpcId:    vpc-1000000
   dBInstanceName: fullstackDB
-  private: 
-    connectionString: postgresql://tencentdb_p2segzwh:n!0%23o12WI4%5BDJqk@10.0.0.10:5432/tencentdb_p2segzwh
-    host:             10.0.0.10
+  dBInstanceId:   postgres-100000
+  private:
+    connectionString: postgresql://tencentdb_100000xxxxxxxxxxxxx@172.16.250.15:5432/tencentdb_1000000
+    host:             172.16.250.15
     port:             5432
-    user:             tencentdb_p2segzwh
-    password:         n!0#o12WI4[DJqk
-    dbname:           tencentdb_p2segzwh
+    user:             tencentdb_100000
+    password:         xxxxxxxx
+    dbname:           tencentdb_100000
 
-fullstack-api: 
+fullstack-api:
   region: ap-guangzhou
-  apigw: 
-    serviceId:   service-2odnzl7w
-    subDomain:   service-2odnzl7w-1259787414.gz.apigw.tencentcs.com
+  apigw:
+    serviceId:   service-100000
+    subDomain:   service-100000-123456789.gz.apigw.tencentcs.com
     environment: release
-    url:         https://service-2odnzl7w-1259787414.gz.apigw.tencentcs.com/release/
-  scf: 
+    url:         https://service-100000-123456789.gz.apigw.tencentcs.com/release/
+  scf:
     functionName: fullstack-api
     runtime:      Nodejs10.15
     namespace:    default
 
-fullstack-frontend: 
-  website: https://fullstack-serverless-db-1259787414.cos-website.ap-guangzhou.myqcloud.com
+fullstack-frontend:
+  website: https://fullstack-serverless-db-123456789.cos-website.ap-guangzhou.myqcloud.com
 
-26s › tencent-fullstack › Success
+50s › tencent-fullstack › Success
 ```
 
 Get deploy info:
@@ -217,8 +220,7 @@ fullstack-frontend › Info successfully loaded
 
 Remove:
 
-```console
-
+```bash
 $ sls remove --all
 
 serverless ⚡ framework
