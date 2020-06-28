@@ -15,11 +15,11 @@ inputs:
   functionConf:
     timeout: 30
     vpcConfig:
-      vpcId: ${output:${stage}:${app}:serverlessVpc.vpcId}
-      subnetId: ${output:${stage}:${app}:serverlessVpc.subnetId}
+      vpcId: ${output:${stage}:${app}:fullstack-vpc.vpcId}
+      subnetId: ${output:${stage}:${app}:fullstack-vpc.subnetId}
     environment:
       variables:
-        PG_CONNECT_STRING: ${output:${stage}:${app}:fullstackDB.private.connectionString}
+        PG_CONNECT_STRING: ${output:${stage}:${app}:fullstack-db.private.connectionString}
   apigatewayConf:
     enableCORS: true
     protocols:

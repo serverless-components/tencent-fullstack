@@ -3,13 +3,13 @@ app: fullstack-serverless-db
 stage: dev
 
 component: postgresql
-name: fullstackDB
+name: fullstack-db
 
 inputs:
   region: ${env:REGION}
   zone: ${env:ZONE}
   dBInstanceName: ${name}
   vpcConfig:
-    vpcId: ${output:${stage}:${app}:serverlessVpc.vpcId}
-    subnetId: ${output:${stage}:${app}:serverlessVpc.subnetId}
+    vpcId: ${output:${stage}:${app}:fullstack-vpc.vpcId}
+    subnetId: ${output:${stage}:${app}:fullstack-vpc.subnetId}
   extranetAccess: false
