@@ -1,3 +1,5 @@
+！！！This project had been moved to https://github.com/serverless-components/tencent-examples/tree/master/fullstack
+
 # fullstack-serverless-db
 
 This is a template of serverless fullstack application. It aims to be the

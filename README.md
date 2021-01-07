@@ -1,3 +1,5 @@
+！！！此项目已迁移至 https://github.com/serverless-components/tencent-examples/tree/master/fullstack
+
 ## 操作场景
 
 该模板可以快速部署一个基于 Vue + Express + PostgreSQL 的全栈 Serverless 应用。主
